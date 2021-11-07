@@ -1,23 +1,11 @@
-import { sendGraphQL } from "@libs/shopifyAdmin";
+import { getCustomersViaHttp } from "@libs/admin/customer.service";
+import { sendHttpGraphQL } from "@libs/auth/basicHttpAuth";
 import { InferGetStaticPropsType, NextPageContext } from "next";
 
 export async function getStaticProps(ctx: NextPageContext) {
-  const query = `
-    {
-      products(first: 10, reverse: true) {
-        edges {
-          node {
-            id
-            title
-            handle
-          }
-        }
-      }
-    }
-  `;
-  const res = await sendGraphQL(query);
+  const data = await getCustomersViaHttp();
 
-  console.log("res:", res.data.products.edges);
+  console.log(data.customers.edges);
 
   return {
     props: {
