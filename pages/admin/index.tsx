@@ -1,5 +1,4 @@
 import { getCustomersViaHttp } from "@libs/admin/customer.service";
-import { sendHttpGraphQL } from "@libs/auth/basicHttpAuth";
 import { InferGetStaticPropsType, NextPageContext } from "next";
 
 export async function getStaticProps(ctx: NextPageContext) {

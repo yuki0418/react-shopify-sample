@@ -1,5 +1,17 @@
 import { sendHttpGraphQL } from "@libs/auth/basicHttpAuth";
 
+export type Customers = {
+  customers: {
+    edges: [{ node: Customer }];
+  };
+};
+
+type Customer = {
+  email: string;
+  displayName: string;
+  tags: string[];
+};
+
 export const getCustomersViaHttp = async () => {
   const query = `
     {
@@ -14,6 +26,7 @@ export const getCustomersViaHttp = async () => {
       }
     }
   `;
-  const { data, extention } = await sendHttpGraphQL(query);
-  return data;
+
+  const { data, extensions } = await sendHttpGraphQL<Customers>(query);
+  return { data, extensions };
 };
